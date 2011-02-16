@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * Processes widget start pages to inject scripts and other assets required for widget runtime operation.
  */
-public abstract interface IStartPageProcessor {
+public abstract interface IStartPageProcessor : Object {
 
 	/**
 	 * Process a start file ready for deployment. 

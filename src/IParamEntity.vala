@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * a Parameter of a Preference or Feature for a Widget
  */
-public abstract interface IParamEntity : IElement {
+public abstract interface IParamEntity : Object, IElement {
 
 	public abstract string getName();
 

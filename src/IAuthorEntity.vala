@@ -17,7 +17,7 @@ namespace org.apache.wookie.w3c {
 /**
  * an Author of a Widget
  */
-public interface IAuthorEntity : ILocalizedEntity {
+public interface IAuthorEntity : Object, ILocalizedEntity {
 
 	public abstract string getAuthorName();
 

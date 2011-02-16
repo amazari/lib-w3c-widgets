@@ -36,12 +36,13 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	IAccessEntity.c IAuthorEntity.c IContentEntity.c \
-	IDescriptionEntity.c IElement.c IFeatureEntity.c IIconEntity.c \
-	ILicenseEntity.c ILocalizedElement.c ILocalizedEntity.c \
-	INameEntity.c IParamEntity.c IPreferenceEntity.c \
-	IStartPageProcessor.c IW3CXMLConfiguration.c W3CWidget.c \
-	W3CWidgetFactory.c exceptions/BadManifestException.c \
+	--disable-warnings -g IAccessEntity.c IAuthorEntity.c \
+	IContentEntity.c IDescriptionEntity.c IElement.c \
+	IFeatureEntity.c IIconEntity.c ILicenseEntity.c \
+	ILocalizedElement.c ILocalizedEntity.c INameEntity.c \
+	IParamEntity.c IPreferenceEntity.c IStartPageProcessor.c \
+	IW3CXMLConfiguration.c W3CWidget.c W3CWidgetFactory.c \
+	exceptions/BadManifestException.c \
 	exceptions/BadWidgetZipFileException.c \
 	exceptions/InvalidContentTypeException.c \
 	exceptions/InvalidStartFileException.c \
@@ -300,8 +301,8 @@ impl/ContentEntity.vala		\
 impl/AccessEntity.vala		\
 W3CWidgetFactory.vala
 
-libw3cwidgets_la_VALAFLAGS = --disable-warnings --library w3c-widgets -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --vapidir ./util -X -luuid 
-CLEANFILES = *.h *.c *.vapi *.stamp *~
+libw3cwidgets_la_VALAFLAGS = -v -g --disable-warnings --library w3c-widgets -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --vapidir ./util -X -luuid 
+CLEANFILES = *.h *.c *.vapi *.stamp *~ */*.h */*.c */*.stamp */*~
 all: all-am
 
 .SUFFIXES:
@@ -889,6 +890,16 @@ $(srcdir)/W3CWidgetFactory.c: $(srcdir)/libw3cwidgets_la_vala.stamp
 	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
 	fi
+$(srcdir)/-g: $(srcdir)/libw3cwidgets_la_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
+	fi
+$(srcdir)/--disable-warnings: $(srcdir)/libw3cwidgets_la_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
+	fi
 $(srcdir)/w3c-widgets.h: $(srcdir)/libw3cwidgets_la_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
@@ -1019,6 +1030,8 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-rm -f --disable-warnings
+	-rm -f -g
 	-rm -f IAccessEntity.c
 	-rm -f IAuthorEntity.c
 	-rm -f IContentEntity.c

@@ -24,11 +24,26 @@ using Xml;
 /**
  * An update description document (UDD) as defined at http://www.w3.org/TR/widgets-updates
  */
-public class UpdateDescriptionDocument{
+public class UpdateDescriptionDocument : Object {
 	
 	private File updateSource;
 	private string versionTag;
 	private ArrayList<Details> details;
+	
+	
+		/**
+	 * Load a UDD from a URL
+	 * @param href the URL to load the UDD from
+	 * @throws InvalidUDDException if the UDD cannot be found, or is not valid
+	 */
+	public UpdateDescriptionDocument(string href) throws Updates.INVALID_UUD{
+		try {
+			Doc doc = Parser.parse_file(href);
+			fromXML(doc);
+		} catch (GLib.Error e) {
+			throw new Updates.INVALID_UUD("the document is not a valid UDD");
+		}
+	}
 	
 	/**
 	 * Get the details of the update, typically a short description of any new features.
@@ -56,21 +71,6 @@ public class UpdateDescriptionDocument{
 		return versionTag;
 	}
 
-
-	
-	/**
-	 * Load a UDD from a URL
-	 * @param href the URL to load the UDD from
-	 * @throws InvalidUDDException if the UDD cannot be found, or is not valid
-	 */
-	public UpdateDescriptionDocument(string href) throws Updates.INVALID_UUD{
-		try {
-			Doc doc = Parser.parse_file(href);
-			fromXML(doc);
-		} catch (GLib.Error e) {
-			throw new Updates.INVALID_UUD("the document is not a valid UDD");
-		}
-	}
 	
 	/**
 	 * Parse a UDD from XML
@@ -82,7 +82,7 @@ public class UpdateDescriptionDocument{
 		Xml.Node root;
 		try {
 			root = document.get_root_element();
-		} catch (Xml.Error e1) {
+		} catch (GLib.Error e1) {
 			throw new Updates.INVALID_UUD("Root element must be <update-info>");
 		}
 		if (root.name != "update-info") throw new Updates.INVALID_UUD("Root element must be <update-info>");
@@ -115,7 +115,7 @@ public class UpdateDescriptionDocument{
 		}
 
 
-		public new void fromXML(Xml.Node element) {
+		public new void fromXML(Xml.Node* element) {
 			base.fromXML(element);
 			this.text = getLocalizedTextContent(element);
 		}

@@ -17,6 +17,6 @@ namespace org.apache.wookie.w3c.updates {
  * An exception thrown when an Update Description Document is not valid
  */
  
-public errordomain Updates {INVALID_UUD} 
+
 
 }

@@ -22,7 +22,7 @@ using Xml;
  * utility methods for extracting and processing text that uses language tags
  * and text direction (e.g. RTL)
  */
-public abstract class AbstractLocalizedEntity : IElement, ILocalizedElement, ILocalizedEntity {
+public abstract class AbstractLocalizedEntity : Object, IElement, ILocalizedElement, ILocalizedEntity {
 	
 	static string LEFT_TO_RIGHT = "ltr";
 	static string RIGHT_TO_LEFT = "rtl";
@@ -73,8 +73,8 @@ public abstract class AbstractLocalizedEntity : IElement, ILocalizedElement, ILo
 	/* (non-Javadoc)
 	 * @see org.apache.wookie.manifestmodel.IManifestModelBase#fromXML(org.jdom.Element)
 	 */
-	public void fromXML(Xml.Node element) {
-		string lang =  UnicodeUtils.normalizeSpaces(element.get_ns_prop(IW3CXMLConfiguration.LANG_ATTRIBUTE, "xml"));
+	public void fromXML(Xml.Node* element) {
+		string lang =  UnicodeUtils.normalizeSpaces(element->get_ns_prop(IW3CXMLConfiguration.LANG_ATTRIBUTE, "xml"));
 		if (lang != "") setLang(lang);
 		dir = getTextDirection(element);
 	}
@@ -92,22 +92,21 @@ public abstract class AbstractLocalizedEntity : IElement, ILocalizedElement, ILo
 		Xml.Node* iter = element.children;
 		for (;iter != null; iter = iter->next){
 			if (iter->type == ElementType.ELEMENT_NODE){
-				Xml.Node xml_node = iter;
-				if (xml_node.get_prop("dir")!= null || 
-				    xml_node.get_prop("lang")!= null && 
-				    xml_node.name =="span") {
+				if (iter->get_prop("dir")!= null || 
+				    iter->get_prop("lang")!= null && 
+				    iter->name =="span") {
 					
-					content.append (@"<span dir='$(getTextDirection(xml_node))'");
-					string lang = xml_node.get_prop ("lang");
+					content.append (@"<span dir='$(getTextDirection(iter))'");
+					string lang = iter->get_prop ("lang");
 					if (lang != null)
 					{
 						content.append(@" xml:lang='$lang'");
 					}
 					content.append(">");
-					content.append(getLocalizedTextContent(xml_node));
+					content.append(getLocalizedTextContent(iter));
 					content.append("</span>");
 				} else {
-					content.append(getLocalizedTextContent(xml_node));
+					content.append(getLocalizedTextContent(iter));
 				}
 			}
 			if (iter->type == ElementType.TEXT_NODE){
@@ -123,21 +122,21 @@ public abstract class AbstractLocalizedEntity : IElement, ILocalizedElement, ILo
 	 * @param element the element to parse
 	 * @return the string "ltr", "rtl", "lro" or "rlo"
 	 */
-	public static string getTextDirection(Xml.Node element){
+	public static string getTextDirection(Xml.Node* element){
 		try {
-			string dir = element.get_prop(IW3CXMLConfiguration.DIR_ATRRIBUTE);
+			string dir = element->get_prop(IW3CXMLConfiguration.DIR_ATRRIBUTE);
 			if (dir == null){
-				if (element.parent == null) return LEFT_TO_RIGHT;
-				return getTextDirection(element.parent);
+				if (element->parent == null) return LEFT_TO_RIGHT;
+				return getTextDirection(element->parent);
 			} else {
 				string dirValue = UnicodeUtils.normalizeSpaces(dir);
 				if (dirValue == "rtl") return RIGHT_TO_LEFT;
 				if (dirValue =="ltr") return LEFT_TO_RIGHT;
 				if (dirValue == "rlo") return RIGHT_TO_LEFT_OVERRIDE;
 				if (dirValue =="lro") return LEFT_TO_RIGHT_OVERRIDE;
-				return getTextDirection(element.parent);			
+				return getTextDirection(element->parent);			
 			}
-		} catch (Xml.Error e) {
+		} catch (GLib.Error e) {
 			// In the case of an error we always return the default value
 			return LEFT_TO_RIGHT;
 		}
@@ -148,10 +147,10 @@ public abstract class AbstractLocalizedEntity : IElement, ILocalizedElement, ILo
 	 * @param element the element to add attributes to
 	 * @return the element with dir and lang attributes added if appropriate
 	 */
-	protected Xml.Node setLocalisationAttributes(Xml.Node element){
-		if (getDir() != null) element.set_prop(IW3CXMLConfiguration.DIR_ATRRIBUTE,getDir());
+	protected Xml.Node* setLocalisationAttributes(Xml.Node* element){
+		if (getDir() != null) element->set_prop(IW3CXMLConfiguration.DIR_ATRRIBUTE,getDir());
 		if (getLang() != null) {
-		 element.set_ns_prop(IW3CXMLConfiguration.LANG_ATTRIBUTE,getLang(), "xml");
+		 element->set_ns_prop(IW3CXMLConfiguration.LANG_ATTRIBUTE,getLang(), "xml");
 		 }
 		return element;
 	}

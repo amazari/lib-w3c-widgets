@@ -19,7 +19,7 @@ using org.apache.wookie.w3c.exceptions;
 /**
  * a Widget icon
  */
-public abstract interface IIconEntity : ILocalizedEntity {
+public abstract interface IIconEntity : Object, ILocalizedEntity {
 		
 	public abstract string getSrc();
 

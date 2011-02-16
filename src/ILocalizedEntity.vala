@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * An element that supports localization with both a language tag and text direction
  */
-public abstract interface ILocalizedEntity : IElement, ILocalizedElement {
+public abstract interface ILocalizedEntity : Object, IElement, ILocalizedElement {
 
 	/**
 	 * Get the direction of text, which can be one of "ltr", "rtl", "lro", or "rlo". The default value is "ltr".

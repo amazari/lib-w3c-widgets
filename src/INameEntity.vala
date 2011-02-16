@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * a Name of a Widget
  */
-public abstract interface INameEntity : ILocalizedEntity {
+public abstract interface INameEntity : Object, ILocalizedEntity {
 
 	public abstract string getName();
 

@@ -17,7 +17,7 @@ namespace org.apache.wookie.w3c {
  * An element that can be localized by language tag
  * @see ILocalizedEntity
  */
-public abstract interface ILocalizedElement {
+public abstract interface ILocalizedElement : Object {
 	
 	/**
 	 * Get the language tag for the element. This should conform to BCP47.

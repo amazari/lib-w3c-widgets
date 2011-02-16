@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * a License for a Widget
  */
-public abstract interface ILicenseEntity : ILocalizedEntity {
+public interface ILicenseEntity : Object, ILocalizedEntity {
 
 	public abstract string getLicenseText();
 

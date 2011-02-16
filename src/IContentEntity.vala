@@ -19,7 +19,7 @@ using org.apache.wookie.w3c.exceptions;
 /**
  * A Widget Start Page
  */
-public interface IContentEntity : ILocalizedEntity {
+public interface IContentEntity : Object, ILocalizedEntity {
 
 	public abstract string getSrc();
 

@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * a Preference for a Widget
  */
-public abstract interface IPreferenceEntity : IParamEntity, IElement {
+public abstract interface IPreferenceEntity : Object, IParamEntity, IElement {
 
 	public abstract bool isReadOnly();
 

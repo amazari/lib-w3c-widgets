@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * a Description of a Widget
  */
-public interface IDescriptionEntity : ILocalizedEntity {
+public interface IDescriptionEntity : Object, ILocalizedEntity {
 
 	public abstract string getDescription();
 

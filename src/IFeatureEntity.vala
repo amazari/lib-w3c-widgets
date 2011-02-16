@@ -17,7 +17,7 @@ namespace org.apache.wookie.w3c {
  * a Feature of a Widget
  */
 
-public abstract interface IFeatureEntity : IElement {
+public abstract interface IFeatureEntity : Object, IElement {
 
 	public abstract string getName();
 

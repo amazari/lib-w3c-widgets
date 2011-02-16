@@ -16,7 +16,7 @@ namespace org.apache.wookie.w3c {
 /**
  * a Widget Access Request Policy (WARP) element
  */
-public interface IAccessEntity : IElement {
+public interface IAccessEntity : Object, IElement {
 
 	public abstract string getOrigin();
 

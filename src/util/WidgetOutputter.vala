@@ -19,7 +19,7 @@ using Xml;
 /**
  * Used for creating a config.xml file from a Widget object
  */
-public class WidgetOutputter {
+public class WidgetOutputter : Object {
 	
 	/**
 	 * This should be set to the local path which was prepended to widgets when they were originally parsed

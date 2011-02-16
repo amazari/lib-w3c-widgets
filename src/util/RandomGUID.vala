@@ -101,7 +101,7 @@ namespace org.apache.wookie.w3c.util {
 /**
 * @version $Id: RandomGUID.java,v 1.3 2009-09-02 18:37:31 scottwilson Exp $
 */
-public class RandomGUID {
+public class RandomGUID : Object {
 	
 	private UUID uuid;
 	private string s_id;

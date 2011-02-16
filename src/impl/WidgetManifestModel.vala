@@ -60,7 +60,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 	 * @throws IOException
 	 * @throws BadManifestException
 	 */
-	public WidgetManifestModel (string xmlText, string[] locales, string[] features, string[] encodings, File zip) throws Xml.Error, IOError, BadManifestException {		
+	public WidgetManifestModel (string xmlText, string[] locales, string[] features, string[] encodings, File zip) throws GLib.Error, IOError, BadManifestException {		
 		base();		
 		this.zip = zip;
 		this.features = features;
@@ -76,7 +76,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		Xml.Node root;
 		try {
 			root = Parser.parse_doc(xmlText)->get_root_element ();
-		} catch (Xml.Error e) {
+		} catch (GLib.Error e) {
 			throw new BadManifestException.BAD_MANIFEST("Config.xml is not well-formed XML");
 		}				
 		fromXML_localized(root,locales);	
@@ -272,13 +272,12 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		bool foundContent = false;
 		Xml.Node* iter = element.children;
 		for (; iter != null; iter = iter->next) {
-			Xml.Node child = (Xml.Node)iter;
-			string tag = child.name;			
+			string tag = iter->name;			
 
 			// NAME IS OPTIONAL - get the name elements (multiple based on xml:lang)
 			if(tag == IW3CXMLConfiguration.NAME_ELEMENT) {				
 				INameEntity aName = new NameEntity();
-				aName.fromXML(child);				
+				aName.fromXML(iter);				
 				// add it to our list only if its not a repetition of an
 				// existing name for the locale
 				if (isFirstLocalizedEntity(fNamesList,aName)) fNamesList.add(aName);
@@ -287,7 +286,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			// DESCRIPTION IS OPTIONAL multiple on xml:lang
 			if(tag == IW3CXMLConfiguration.DESCRIPTION_ELEMENT) {				
 				IDescriptionEntity aDescription = new DescriptionEntity();
-				aDescription.fromXML(child);
+				aDescription.fromXML(iter);
 				// add it to our list only if its not a repetition of an
 				// existing description for the locale and the language tag is valid
 				if (isFirstLocalizedEntity(fDescriptionsList,aDescription) && aDescription.isValid()) fDescriptionsList.add(aDescription);
@@ -296,13 +295,13 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			// AUTHOR IS OPTIONAL - can only be one, ignore subsequent repetitions
 			if(tag == IW3CXMLConfiguration.AUTHOR_ELEMENT && fAuthor == null) {
 				fAuthor = new AuthorEntity();
-				fAuthor.fromXML(child);
+				fAuthor.fromXML(iter);
 			}	
 			
 			// UDPATE DESCRIPTION IS OPTONAL - can only be one, ignore subsequent repetitions
 			if(tag == IW3CXMLConfiguration.UPDATE_ELEMENT && fUpdate == null) {
 				UpdateDescription update = new UpdateDescription("");
-				update.fromXML(child);
+				update.fromXML(iter);
 				// It must have a valid HREF attribute, or it is ignored
 				if (update.getHref() != null) fUpdate = update.getHref();
 			}	
@@ -310,7 +309,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			// LICENSE IS OPTIONAL - can be many
 			if(tag == IW3CXMLConfiguration.LICENSE_ELEMENT) {				
 				ILicenseEntity aLicense = new LicenseEntity();
-				aLicense.fromXML(child);
+				aLicense.fromXML(iter);
 				// add it to our list only if its not a repetition of an
 				// existing entry for the locale and the language tag is valid
 				if (isFirstLocalizedEntity(fLicensesList,aLicense) && aLicense.isValid()) fLicensesList.add(aLicense);
@@ -319,14 +318,14 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			// ICON IS OPTIONAL - can be many
 			if(tag == IW3CXMLConfiguration.ICON_ELEMENT) {						
 				IIconEntity anIcon = new IconEntity();
-				anIcon.fromXML(child,locales,zip);
+				anIcon.fromXML(iter,locales,zip);
 				if (anIcon.getSrc()!=null) fIconsList.add(anIcon);
 			}
 			
 			// ACCESS IS OPTIONAL  can be many 
 			if(tag == IW3CXMLConfiguration.ACCESS_ELEMENT) {											
 				IAccessEntity access = new AccessEntity();
-				access.fromXML(child);
+				access.fromXML(iter);
 				if (access.getOrigin()!=null){
 					if (access.getOrigin() =="*") {
 						fAccessList.insert(0, access);
@@ -341,7 +340,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 				if (!foundContent){
 					foundContent = true;
 					IContentEntity aContent = new ContentEntity("", "", "");	
-					aContent.fromXML(child,locales,supportedEncodings,zip);
+					aContent.fromXML(iter,locales,supportedEncodings,zip);
 					if (aContent.getSrc()!=null) fContentList.add(aContent);
 				}
 			}
@@ -349,14 +348,14 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			// FEATURE IS OPTIONAL - can be many
 			if(tag == IW3CXMLConfiguration.FEATURE_ELEMENT) {
 				IFeatureEntity feature = new FeatureEntity.from_strings(this.features);
-				feature.fromXML(child);
+				feature.fromXML(iter);
 				if (feature.getName()!=null) fFeaturesList.add(feature);
 			}
 			
 			// PREFERENCE IS OPTIONAL - can be many
 			if(tag == IW3CXMLConfiguration.PREFERENCE_ELEMENT) {
 				IPreferenceEntity preference = new PreferenceEntity();
-				preference.fromXML(child);
+				preference.fromXML(iter);
 				// Skip preferences without names
 				if (preference.getName() != null){
 					// Skip preferences already defined

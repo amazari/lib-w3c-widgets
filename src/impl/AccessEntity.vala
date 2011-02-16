@@ -28,7 +28,7 @@ public errordomain AccessEntityError {
 /**
  * The Access element is defined in: http://www.w3.org/TR/widgets-access/
  */
-public class AccessEntity : IAccessEntity, IElement {
+public class AccessEntity : Object, IAccessEntity, IElement {
 
 	private string fOrigin;
 	private bool fSubDomains;
@@ -46,10 +46,10 @@ public class AccessEntity : IAccessEntity, IElement {
 		return fSubDomains;
 	}
 
-	public void fromXML(Xml.Node element) {	
+	public void fromXML(Xml.Node* element) {	
 		// Origin is required
-		if (element.get_prop(IW3CXMLConfiguration.ORIGIN_ATTRIBUTE)==null) return;
-		fOrigin = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.ORIGIN_ATTRIBUTE));
+		if (element->get_prop(IW3CXMLConfiguration.ORIGIN_ATTRIBUTE)==null) return;
+		fOrigin = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.ORIGIN_ATTRIBUTE));
 		if (fOrigin == "*") return;
 		try {
 			processOrigin();
@@ -59,7 +59,7 @@ public class AccessEntity : IAccessEntity, IElement {
 		}
 		// Subdomains is optional
 		try {
-			processSubdomains(element.get_prop(IW3CXMLConfiguration.SUBDOMAINS_ATTRIBUTE));
+			processSubdomains(element->get_prop(IW3CXMLConfiguration.SUBDOMAINS_ATTRIBUTE));
 		} catch (GLib.Error e) {
 			fSubDomains = false;
 			fOrigin = null;

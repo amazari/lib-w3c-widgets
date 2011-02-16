@@ -23,7 +23,7 @@ using Xml;
  * @author Paul Sharples
  * @version $Id: ParamEntity.java,v 1.3 2009-09-02 18:37:31 scottwilson Exp $
  */
-public class ParamEntity : IParamEntity, IElement {
+public class ParamEntity : Object, IParamEntity, IElement {
 	
 	private string fName;
 	private string fValue;
@@ -54,10 +54,10 @@ public class ParamEntity : IParamEntity, IElement {
 		fValue = value;
 	}
 	
-	public void fromXML(Xml.Node element) throws BadManifestException {
-		fName = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE));
+	public void fromXML(Xml.Node* element) throws BadManifestException {
+		fName = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE));
 		if (fName == "") fName = null;
-		fValue = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.VALUE_ATTRIBUTE));
+		fValue = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.VALUE_ATTRIBUTE));
 		if (fValue == "") fValue = null;
 	}
 

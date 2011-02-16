@@ -53,7 +53,7 @@ namespace org.apache.wookie.w3c {
  * </dl>
  * 
  */
-public class W3CWidgetFactory {
+public class W3CWidgetFactory : Object {
 		
 	// this value is set by the parser
 	private File unzippedWidgetDirectory;
@@ -89,11 +89,15 @@ public class W3CWidgetFactory {
 	 */
 	public void setOutputDirectory(string outputDirectory) throws IOError {
 		File file = File.new_for_path(outputDirectory);
-		if (!file.query_exists()) throw new IOError.NOT_FOUND("the output directory does not exist");
+		if (!file.query_exists()) 
+			throw new IOError.NOT_FOUND("the output directory does not exist");
+			
 		FileInfo file_info = file.query_info (FILE_ATTRIBUTE_ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
-		bool can_write =file_info.get_attribute_boolean (FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
-		if (!can_write) throw new IOError.PERMISSION_DENIED("the output directory cannot be written to");
-		if (file.query_file_type(FileQueryInfoFlags.NONE) != FileType.DIRECTORY) throw new IOError.NOT_DIRECTORY("the output directory is not a folder");
+		bool can_write = file_info.get_attribute_boolean (FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+		if (!can_write) 
+			throw new IOError.PERMISSION_DENIED("the output directory cannot be written to");
+		if (file.query_file_type(FileQueryInfoFlags.NONE) != FileType.DIRECTORY) 
+			throw new IOError.NOT_DIRECTORY("the output directory is not a folder");
 		this.outputDirectory = file;
 	}
 
@@ -132,7 +136,8 @@ public class W3CWidgetFactory {
 	 * @throws BadManifestException if there is a problem with the config.xml manifest file in the package
 	 */
 	public W3CWidget parse_zip(File zipFile) throws Error, BadWidgetZipFileException, BadManifestException{
-		if (outputDirectory == null) throw new IOError.FAILED("No output directory has been set; use setOutputDirectory(File) to set the location to output widget files");
+		if (outputDirectory == null) 
+			throw new IOError.FAILED("No output directory has been set; use setOutputDirectory(File) to set the location to output widget files");
 		return processWidgetPackage(zipFile);
 	}
 	
@@ -146,7 +151,7 @@ public class W3CWidgetFactory {
 	 * @throws InvalidContentTypeException if the widget has an invalid content type
 	 * @throws IOException if the widget cannot be downloaded
 	 */
-	public W3CWidget parse_url(URI url) throws BadWidgetZipFileException, BadManifestException, InvalidContentTypeException, IOError, Error{
+	public W3CWidget parse_url(URI url) throws BadWidgetZipFileException, BadManifestException, InvalidContentTypeException, IOError {
 		File file = download(url,false);
 		return parse_zip(file);
 	}
@@ -163,7 +168,7 @@ public class W3CWidgetFactory {
 	 * @throws IOException if the widget cannot be downloaded
 	 */
 	public W3CWidget parse(URI url, bool ignoreContentType) throws BadWidgetZipFileException, BadManifestException, InvalidContentTypeException, IOError, Error{
-		File file = download(url,ignoreContentType);
+		File file = download(url, ignoreContentType);
 		return parse_zip(file);
 	}
 	
@@ -190,7 +195,8 @@ public class W3CWidgetFactory {
    		soup_session.send_message (message);
 		
 		string type = message.response_headers.get("Content-Type");
-		if (!ignoreContentType && !type.has_prefix(WIDGET_CONTENT_TYPE)) throw new InvalidContentTypeException.INVALID_CONTENT_TYPE("Problem downloading widget: expected a content type of "+WIDGET_CONTENT_TYPE+" but received:"+type);
+		if (!ignoreContentType && !type.has_prefix(WIDGET_CONTENT_TYPE)) 
+			throw new InvalidContentTypeException.INVALID_CONTENT_TYPE("Problem downloading widget: expected a content type of "+WIDGET_CONTENT_TYPE+" but received:"+type);
 		
 		string tmp_dir = Environment.get_tmp_dir ();
 		File file = File.new_for_path(@"$tmp_dir/wookie");
@@ -202,8 +208,8 @@ public class W3CWidgetFactory {
 		return file;
 	}
 
-	public void setEncodings(string[] encodings) throws Error {
-		if (encodings.length == 0) throw new InvalidContentTypeException.INVALID_CONTENT_TYPE("At least one encoding must be specified");
+	public void setEncodings(string[] encodings) requires (encodings.length > 0) {
+		
 		this.encodings = encodings;
 	}
 

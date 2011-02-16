@@ -18,14 +18,14 @@ using org.apache.wookie.w3c.exceptions;
 /**
  * Base class for model objects that are unmarshalled from an XML element
  */
-public interface IElement {
+public interface IElement : Object {
 	
     /**
      * Unmarshall the given XML Element to this Object
      * 
      * @param element The Element to unmarshall
      */
-    public abstract void fromXML(Xml.Node element) throws BadManifestException;
+    public abstract void fromXML(Xml.Node* element) throws BadManifestException;
 
     /**
      * Marshall the entity into an XML Element

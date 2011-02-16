@@ -16,10 +16,12 @@ using org.apache.wookie.w3c;
 using org.apache.wookie.w3c.exceptions;
 using org.apache.wookie.w3c.util;
 
+public errordomain Updates {INVALID_UUD} 
+
 /**
  * An UpdateDescription for a Widget
  */
-public class UpdateDescription{
+public class UpdateDescription : Object {
 	
 	private string _href;
 	

@@ -26,7 +26,7 @@ using Gee;
  * @author Paul Sharples
  * @version $Id: FeatureEntity.java,v 1.3 2009-09-02 18:37:31 scottwilson Exp $
  */
-public class FeatureEntity : IFeatureEntity, IElement {
+public class FeatureEntity : Object, IFeatureEntity, IElement {
 	
 	private string fName;
 	private bool fRequired;
@@ -84,10 +84,10 @@ public class FeatureEntity : IFeatureEntity, IElement {
 		fParams = params;
 	}
 	
-	public void fromXML(Xml.Node element) throws BadManifestException {
-		fName = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE));
+	public void fromXML(Xml.Node* element) throws BadManifestException {
+		fName = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE));
 		fRequired = true;
-		string isRequired = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.REQUIRED_ATTRIBUTE));
+		string isRequired = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.REQUIRED_ATTRIBUTE));
 		if(isRequired == "false") fRequired = false;
 
 		if(fName == ""){
@@ -119,7 +119,7 @@ public class FeatureEntity : IFeatureEntity, IElement {
 		
 		// parse the children (look for <param> elements)
 		
-		for (Xml.Node* iter = element.children; iter != null; iter = iter->next) 
+		for (Xml.Node* iter = element->children; iter != null; iter = iter->next) 
 		{
 			
 			string tag = iter->name;			
