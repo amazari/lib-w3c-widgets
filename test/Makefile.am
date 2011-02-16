@@ -1,12 +1,12 @@
-AM_CPPFLAGS = $(CALCULATOR_CFLAGS) -I$(top_srcdir)/src
+AM_CPPFLAGS = $(DEPENDENCIES_CFLAGS) -I$(top_srcdir)/src
 
 TESTS = \
-	calculator-test
+	w3c-widgets-test
 
 check_PROGRAMS = $(TESTS)
 
-calculator_test_SOURCES = calculator_test.vala
-calculator_test_LDADD = $(top_builddir)/src/libcalculator.la $(CALCULATOR_LIBS)
-calculator_test_VALAFLAGS = $(top_builddir)/src/calculator.vapi
+w3c_widgets_test_SOURCES = w3c_widgets_test.vala
+w3c_widgets_test_LDADD = $(top_builddir)/src/libw3cwidgets.la $(CALCULATOR_LIBS)
+w3c_widgets_test_VALAFLAGS = $(top_builddir)/src/w3cwidgets.vapi
 
 CLEANFILES = *.c *.stamp test-report.xml test-report.html

@@ -136,8 +136,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CALCULATOR_CFLAGS = @CALCULATOR_CFLAGS@
-CALCULATOR_LIBS = @CALCULATOR_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -146,6 +144,8 @@ CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DEPENDENCIES_CFLAGS = @DEPENDENCIES_CFLAGS@
+DEPENDENCIES_LIBS = @DEPENDENCIES_LIBS@
 DLLTOOL = @DLLTOOL@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
@@ -248,7 +248,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = $(CALCULATOR_CFLAGS)
+AM_CPPFLAGS = $(DEPENDENCIES_CFLAGS)
 lib_LTLIBRARIES = libw3cwidgets.la
 libw3cwidgets_la_SOURCES = \
 ILocalizedEntity.vala			\
@@ -301,7 +301,7 @@ impl/AccessEntity.vala		\
 W3CWidgetFactory.vala
 
 libw3cwidgets_la_VALAFLAGS = --disable-warnings --library w3c-widgets -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --vapidir ./util -X -luuid 
-CLEANFILES = *.h *.c *.vapi *.stamp
+CLEANFILES = *.h *.c *.vapi *.stamp *~
 all: all-am
 
 .SUFFIXES:

@@ -1,4 +1,4 @@
-AM_CPPFLAGS = $(CALCULATOR_CFLAGS)
+AM_CPPFLAGS = $(DEPENDENCIES_CFLAGS)
 
 lib_LTLIBRARIES = libw3cwidgets.la
 
@@ -55,4 +55,4 @@ W3CWidgetFactory.vala
 libw3cwidgets_la_VALAFLAGS = --disable-warnings --library w3c-widgets -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --vapidir ./util -X -luuid 
 
 
-CLEANFILES = *.h *.c *.vapi *.stamp
+CLEANFILES = *.h *.c *.vapi *.stamp *~

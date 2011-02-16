@@ -17,9 +17,9 @@ pkg_modules="glib-2.0 >= 2.24.1
              gee-1.0 >= 0.6
              libsoup-2.4
              uuid >= 2.19"
-PKG_CHECK_MODULES(CALCULATOR, [$pkg_modules])
+PKG_CHECK_MODULES(DEPENDENCIES, [$pkg_modules])
 
-AC_SUBST(CALCULATOR_CFLAGS)
-AC_SUBST(CALCULATOR_LIBS)
+AC_SUBST(DEPENDENCIES_CFLAGS)
+AC_SUBST(DEPENDENCIES_LIBS)
 
 AC_OUTPUT
