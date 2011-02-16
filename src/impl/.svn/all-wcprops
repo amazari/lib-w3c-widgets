@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1069948/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl
+END
+AuthorEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/AuthorEntity.java
+END
+LicenseEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/LicenseEntity.java
+END
+DescriptionEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/DescriptionEntity.java
+END
+IconEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/IconEntity.java
+END
+AbstractLocalizedEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/AbstractLocalizedEntity.java
+END
+ContentEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/ContentEntity.java
+END
+FeatureEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/FeatureEntity.java
+END
+PreferenceEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/PreferenceEntity.java
+END
+WidgetManifestModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1069948/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/WidgetManifestModel.java
+END
+NameEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/NameEntity.java
+END
+ParamEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/ParamEntity.java
+END
+AccessEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1069861/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/impl/AccessEntity.java
+END

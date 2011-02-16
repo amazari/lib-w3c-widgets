@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1069948/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util
+END
+WidgetOutputter.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1069866/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/WidgetOutputter.java
+END
+WidgetPackageUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1069867/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/WidgetPackageUtils.java
+END
+UnicodeUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/941428/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/UnicodeUtils.java
+END
+IRIValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/941429/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/IRIValidator.java
+END
+LocalizationUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/988048/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/LocalizationUtils.java
+END
+NumberUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/934123/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/NumberUtils.java
+END
+RandomGUID.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/918617/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/RandomGUID.java
+END
+FormattingUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1069948/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/FormattingUtils.java
+END
+ContentTypeUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/932381/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/util/ContentTypeUtils.java
+END

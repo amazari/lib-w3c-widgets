@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/asf/!svn/ver/936279/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/exceptions
+END
+InvalidContentTypeException.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/936279/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/exceptions/InvalidContentTypeException.java
+END
+InvalidStartFileException.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/936279/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/exceptions/InvalidStartFileException.java
+END
+BadManifestException.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/936279/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/exceptions/BadManifestException.java
+END
+BadWidgetZipFileException.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/936279/incubator/wookie/trunk/parser/java/src/org/apache/wookie/w3c/exceptions/BadWidgetZipFileException.java
+END
