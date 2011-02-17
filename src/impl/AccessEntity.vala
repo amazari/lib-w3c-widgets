@@ -12,12 +12,12 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
 
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.util;
 
 using Xml;
 
@@ -117,7 +117,7 @@ public class AccessEntity : Object, IAccessEntity, IElement {
 	}
 
 	public Xml.Node toXml() {
-		Xml.Node element = new Xml.Node(IW3CXMLConfiguration.ACCESS_ELEMENT,IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		Xml.Node element = new Xml.Node(Xml.NameSpace.MANIFEST,IW3CXMLConfiguration.ACCESS_ELEMENT);
 		element.set_prop(IW3CXMLConfiguration.SUBDOMAINS_ATTRIBUTE, hasSubDomains().to_string());
 		element.set_prop(IW3CXMLConfiguration.ORIGIN_ATTRIBUTE, getOrigin());
 		return element;

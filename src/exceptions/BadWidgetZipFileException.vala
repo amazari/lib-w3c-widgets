@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.exceptions {
+namespace W3CWidgets.exceptions {
 /**
  * Thrown when there is a problem with a Widget's Zip archive
  */

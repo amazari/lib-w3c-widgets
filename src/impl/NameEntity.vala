@@ -12,15 +12,15 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.util;
 
 /**
  * the <name> element
  */
-public class NameEntity : AbstractLocalizedEntity, INameEntity {
+public class NameEntity : AbstractLocalizedEntity, IElement, INameEntity {
 
 	private string fName;
 	private string fShort;
@@ -55,16 +55,16 @@ public class NameEntity : AbstractLocalizedEntity, INameEntity {
 		fShort = short1;
 	}
 	
-	public void fromXML(Xml.Node element) {		
+	public override void fromXML(Xml.Node* element) {		
 		base.fromXML(element);
 		// Get the text value of name
 		fName = getLocalizedTextContent(element);
 		// Get the short attribute (if exists)
-		fShort = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.SHORT_ATTRIBUTE));
+		fShort = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.SHORT_ATTRIBUTE));
 	}
 	
 	public override Xml.Node toXml() {
-		Xml.Node nameElem = new Xml.Node(IW3CXMLConfiguration.NAME_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		Xml.Node nameElem = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.NAME_ELEMENT);
 		nameElem.set_content(getName());
 		if (getShort() != null && getShort().length > 0) nameElem.set_prop(IW3CXMLConfiguration.SHORT_ATTRIBUTE, getShort());
 		nameElem = setLocalisationAttributes(nameElem);

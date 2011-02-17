@@ -12,11 +12,11 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 /**
  * @author Paul Sharples
  * @version $Id: IconEntity.java,v 1.3 2009-09-02 18:37:31 scottwilson Exp $
@@ -59,10 +59,10 @@ public class IconEntity : AbstractLocalizedEntity, IIconEntity{
 		fWidth = width;
 	}
 	
-//	public void fromXML(Element element){
-//	}
+	public new void fromXML(Xml.Node* element){
+	}
 	
-	public void fromXML(Xml.Node element,string[] locales, File zip) throws BadManifestException{		
+	public void fromXML_localized(Xml.Node element,string[] locales, File zip) throws BadManifestException{		
 		// src is required
 		fSrc = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.SOURCE_ATTRIBUTE));
 
@@ -101,7 +101,7 @@ public class IconEntity : AbstractLocalizedEntity, IIconEntity{
 	}
 
 	public override Xml.Node toXml() {
-		var element = new Xml.Node(IW3CXMLConfiguration.ICON_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.ICON_ELEMENT);
 		element.set_prop(IW3CXMLConfiguration.SOURCE_ATTRIBUTE, getSrc());
 		if (getHeight() > 0) element.set_prop(IW3CXMLConfiguration.HEIGHT_ATTRIBUTE,getHeight().to_string());
 		if (getWidth() > 0) element.set_prop(IW3CXMLConfiguration.WIDTH_ATTRIBUTE,getWidth().to_string());

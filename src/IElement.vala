@@ -11,9 +11,9 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c {
+namespace W3CWidgets {
 
-using org.apache.wookie.w3c.exceptions;
+using W3CWidgets.exceptions;
 
 /**
  * Base class for model objects that are unmarshalled from an XML element
@@ -25,12 +25,12 @@ public interface IElement : Object {
      * 
      * @param element The Element to unmarshall
      */
-    public abstract void fromXML(Xml.Node* element) throws BadManifestException;
+    public abstract void fromXML(Xml.Node* element) throws GLib.Error;
 
     /**
      * Marshall the entity into an XML Element
      * @return the W3C Widgets Element representing the content of the entity
      */
-     public abstract Xml.Node toXml();
+     public abstract Xml.Node toXml() throws GLib.Error;
 }
 }

@@ -1,5 +1,5 @@
 AC_PREREQ([2.65])
-AC_INIT([calculator],[1.0],[example@gnome.org])
+AC_INIT([lib-w3c-widgets],[1.0],[example@gnome.org])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 AC_CONFIG_FILES([Makefile

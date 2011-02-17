@@ -11,9 +11,9 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.util {
+namespace W3CWidgets.util {
 
-using org.apache.wookie.w3c;
+using W3CWidgets;
 using Xml;
 
 /**
@@ -72,7 +72,7 @@ public class WidgetOutputter : Object {
 	private Doc createWidgetDocument(W3CWidget widget){
 		W3CWidget local_widget = replacePaths(widget);
 		Doc doc = new Doc ();
-		doc.set_root_element (local_widget);
+		doc.set_root_element (local_widget.toXml());
 		return doc;
 	}
 	

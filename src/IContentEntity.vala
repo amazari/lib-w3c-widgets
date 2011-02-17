@@ -12,9 +12,9 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c {
+namespace W3CWidgets {
 
-using org.apache.wookie.w3c.exceptions;
+using W3CWidgets.exceptions;
 
 /**
  * A Widget Start Page
@@ -25,15 +25,15 @@ public interface IContentEntity : Object, ILocalizedEntity {
 
 	public abstract void setSrc(string src);
 
-	public abstract string getCharSet();
+	public abstract string? getCharSet();
 
 	public abstract void setCharSet(string charSet);
 
-	public abstract string getType();
+	public abstract string? getType();
 
 	public abstract void setType(string type);
 	
-	public abstract void fromXML(Xml.Node element, string[] locales, string[] encodings, File zip) throws BadManifestException;
+	public abstract void fromXML_localized(Xml.Node element, string[] locales, string[] encodings, File zip) throws BadManifestException;
 
 }
 }

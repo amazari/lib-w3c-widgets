@@ -11,10 +11,10 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.util;
 
 using Xml;
 /**
@@ -46,7 +46,7 @@ public abstract class AbstractLocalizedEntity : Object, IElement, ILocalizedElem
 	 * Set the language tag for the object
 	 * @param language the language tag to set; this should be a valid BCP-47 language tag
 	 */
-	public void setLang(string lang) {
+	public void setLang(string? lang) {
 		this.lang = lang;
 	}
 	
@@ -58,7 +58,7 @@ public abstract class AbstractLocalizedEntity : Object, IElement, ILocalizedElem
 		this.dir = dir;
 	}
 	
-	public abstract Xml.Node toXml();
+	public abstract Xml.Node toXml() throws GLib.Error;
 	
 	/**
 	 * Checks whether the language tag for the entity is OK.
@@ -73,7 +73,7 @@ public abstract class AbstractLocalizedEntity : Object, IElement, ILocalizedElem
 	/* (non-Javadoc)
 	 * @see org.apache.wookie.manifestmodel.IManifestModelBase#fromXML(org.jdom.Element)
 	 */
-	public void fromXML(Xml.Node* element) {
+	public virtual void fromXML(Xml.Node* element) throws GLib.Error {
 		string lang =  UnicodeUtils.normalizeSpaces(element->get_ns_prop(IW3CXMLConfiguration.LANG_ATTRIBUTE, "xml"));
 		if (lang != "") setLang(lang);
 		dir = getTextDirection(element);
@@ -150,7 +150,7 @@ public abstract class AbstractLocalizedEntity : Object, IElement, ILocalizedElem
 	protected Xml.Node* setLocalisationAttributes(Xml.Node* element){
 		if (getDir() != null) element->set_prop(IW3CXMLConfiguration.DIR_ATRRIBUTE,getDir());
 		if (getLang() != null) {
-		 element->set_ns_prop(IW3CXMLConfiguration.LANG_ATTRIBUTE,getLang(), "xml");
+		 element->set_ns_prop(Xml.NameSpace.XML, IW3CXMLConfiguration.LANG_ATTRIBUTE,getLang());
 		 }
 		return element;
 	}

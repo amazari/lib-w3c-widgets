@@ -11,7 +11,7 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.util {
+namespace W3CWidgets.util {
 
 
 /**
@@ -62,7 +62,7 @@ public class ContentTypeUtils {
 	 * @param filename
 	 * @return the matched content type, or null if there is no match
 	 */
-	private static string getContentType(string filename){
+	private static string? getContentType(string filename){
 
 		if (filename.length == 0) return null;
 		if (filename.has_suffix(".")) return null;
@@ -83,7 +83,7 @@ public class ContentTypeUtils {
 	 * @param ext
 	 * @return the content-type for the given file extension, or null if there is no match
 	 */
-	private static string getContentTypeForExtension(string ext){
+	private static string? getContentTypeForExtension(string ext){
 		if(ext == "html") return "text/html";
 		if(ext == "htm") return "text/html";
 		if(ext == "css") return "text/css";

@@ -11,11 +11,11 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.util {
+namespace W3CWidgets.util {
 
 
-using org.apache.wookie.w3c.util;
-using org.apache.wookie.w3c;
+using W3CWidgets.util;
+using W3CWidgets;
 
 using Gee;
 
@@ -53,7 +53,7 @@ public class WidgetPackageUtils {
 	 */
 	public static string[]? locateFilePaths(string path, string[] locales, File zip) throws Error{
 		string path2 = path;
-		ArrayList<string> paths = new ArrayList<string>();
+		var paths = new ArrayList<string>();
 		File child;
 		
 		if (path.has_prefix("/")) path2 = path.substring(1, path.length);

@@ -1,4 +1,4 @@
-namespace org.apache.wookie.w3c.util {
+namespace W3CWidgets.util {
 
 
 /*

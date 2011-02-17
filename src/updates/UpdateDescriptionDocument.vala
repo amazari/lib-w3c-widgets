@@ -11,12 +11,12 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.updates {
+namespace W3CWidgets.updates {
 
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.impl;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.impl;
+using W3CWidgets.util;
 
 using Gee;
 using Xml;
@@ -77,14 +77,12 @@ public class UpdateDescriptionDocument : Object {
 	 * @param document the XML document to parse
 	 * @throws InvalidUDDException if the document is not a valid UDD
 	 */
-	public void fromXML(Doc document) throws Updates.INVALID_UUD{
+	public void fromXML(Doc document) throws GLib.Error {
 		
 		Xml.Node root;
-		try {
-			root = document.get_root_element();
-		} catch (GLib.Error e1) {
-			throw new Updates.INVALID_UUD("Root element must be <update-info>");
-		}
+	
+		root = document.get_root_element();
+		
 		if (root.name != "update-info") throw new Updates.INVALID_UUD("Root element must be <update-info>");
 		if (root.ns->href != IW3CXMLConfiguration.MANIFEST_NAMESPACE) throw new Updates.INVALID_UUD("Wrong namespace for Update Description Document");
 		if (root.get_prop("version") == null) throw new Updates.INVALID_UUD("no version attribute");
@@ -92,10 +90,9 @@ public class UpdateDescriptionDocument : Object {
 		versionTag = root.get_prop("version");
 		try {
 			updateSource = File.new_for_uri(root.get_prop("src"));
-		} catch (GLib.Error e) {
+		} catch (IOError e) {
 			throw new Updates.INVALID_UUD("src attribute is not a valid URL");
 		}
-		Xml.Node* detailsElements = root.children;
 		this.details = new ArrayList<Details>();
 		 for (Xml.Node* iter = root.children; iter != null; iter = iter->next) {
        
@@ -114,14 +111,13 @@ public class UpdateDescriptionDocument : Object {
 		public Details(){
 		}
 
-
-		public new void fromXML(Xml.Node* element) {
+		public new void fromXML(Xml.Node* element) throws GLib.Error  {
 			base.fromXML(element);
 			this.text = getLocalizedTextContent(element);
 		}
 
-		public override Xml.Node toXml() {
-			var element = new Xml.Node(IW3CXMLConfiguration.MANIFEST_NAMESPACE, "details");
+		public override Xml.Node toXml() throws GLib.Error {
+			var element = new Xml.Node(Xml.NameSpace.MANIFEST,"details");
 			element.set_content(text);
 			element = setLocalisationAttributes(element);
 			return element;

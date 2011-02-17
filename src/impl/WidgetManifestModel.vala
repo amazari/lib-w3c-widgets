@@ -12,16 +12,16 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
 
 
 
-using org.apache.wookie.w3c.updates;
-using org.apache.wookie.w3c.util;
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+using W3CWidgets.updates;
+using W3CWidgets.util;
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 
 using Xml;
 using Gee;
@@ -30,7 +30,7 @@ using Gee;
  * for a widget, including all sub-objects
  * @author Paul Sharples
  */
-public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
+public class WidgetManifestModel : AbstractLocalizedEntity, IElement, W3CWidget {
 	
 	private string fIdentifier;
 	private string fVersion;
@@ -61,26 +61,38 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 	 * @throws BadManifestException
 	 */
 	public WidgetManifestModel (string xmlText, string[] locales, string[] features, string[] encodings, File zip) throws GLib.Error, IOError, BadManifestException {		
-		base();		
+		Object();		
 		this.zip = zip;
 		this.features = features;
 		this.supportedEncodings = encodings;
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
 		fNamesList = new ArrayList<INameEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO1\n");
 		fDescriptionsList = new ArrayList<IDescriptionEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO2\n");
 		fLicensesList = new ArrayList<ILicenseEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO3\n");
 		fIconsList = new ArrayList<IIconEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO4\n");
 		fContentList = new ArrayList<IContentEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO5\n");
 		fAccessList = new ArrayList<IAccessEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO6\n");
 		fFeaturesList = new ArrayList<IFeatureEntity>();
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO7\n");
 		fPreferencesList = new ArrayList<IPreferenceEntity>();
-		Xml.Node root;
-		try {
-			root = Parser.parse_doc(xmlText)->get_root_element ();
-		} catch (GLib.Error e) {
-			throw new BadManifestException.BAD_MANIFEST("Config.xml is not well-formed XML");
-		}				
-		fromXML_localized(root,locales);	
+		print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO8\n");
+		Xml.Node* root;
+				print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO9\n");
 		
+			Parser.init();
+			root = Parser.parse_doc(xmlText)->get_root_element ();
+			Parser.cleanup();
+			
+			if (root == null)
+				throw new BadManifestException.BAD_MANIFEST("Config.xml is not well-formed XML");				
+		fromXML_localized(root,locales);	
+				print("YOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO10\n");
 		// Add default icons
 		foreach (string iconpath in WidgetPackageUtils.getDefaults(zip, locales,IW3CXMLConfiguration.DEFAULT_ICON_FILES)){
 			if (iconpath != null) {
@@ -181,10 +193,10 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		return fUpdate;
 	}
 	
-	public void fromXML(Xml.Node element){
+	public override void fromXML(Xml.Node* element){
 		warning("WidgetManifestModel.fromXML() called with no locales");
 		try {
-			fromXML(element);
+			fromXML_localized(element, new string[]{"en"});
 		} catch (BadManifestException e) {
 			error("WidgetManifestModel.fromXML() called with no locales and Bad Manifest");
 		}
@@ -203,17 +215,17 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 	}
 
 	
-	public void fromXML_localized(Xml.Node element, string[] locales) throws BadManifestException {						
+	public void fromXML_localized(Xml.Node* element, string[] locales) throws BadManifestException {						
 		// check the namespace uri 
-		if(element.ns->href != IW3CXMLConfiguration.MANIFEST_NAMESPACE){			
-			throw new BadManifestException.BAD_MANIFEST("'"+element.ns->href
+		if(element->ns->href != IW3CXMLConfiguration.MANIFEST_NAMESPACE){			
+			throw new BadManifestException.BAD_MANIFEST("'"+element->ns->href
 					+ "' is a bad namespace. (Should be '" + IW3CXMLConfiguration.MANIFEST_NAMESPACE +"')");
 		}				
 		// IDENTIFIER IS OPTIONAL
-		fIdentifier = element.get_prop(IW3CXMLConfiguration.ID_ATTRIBUTE);
+		fIdentifier = element->get_prop(IW3CXMLConfiguration.ID_ATTRIBUTE);
 		if(fIdentifier == null){
 			// try the old one
-			fIdentifier = element.get_prop(IW3CXMLConfiguration.UID_ATTRIBUTE);
+			fIdentifier = element->get_prop(IW3CXMLConfiguration.UID_ATTRIBUTE);
 		}
 		// Normalize spaces
 		if(fIdentifier != null) fIdentifier = UnicodeUtils.normalizeSpaces(fIdentifier);
@@ -227,10 +239,10 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			fIdentifier = "http://incubator.apache.org/wookie/generated/" + r.tostring();
 		}
 		// VERSION IS OPTIONAL		
-		fVersion = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.VERSION_ATTRIBUTE));
+		fVersion = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.VERSION_ATTRIBUTE));
 		
 		// HEIGHT IS OPTIONAL	
-		string height  = element.get_prop(IW3CXMLConfiguration.HEIGHT_ATTRIBUTE);
+		string height  = element->get_prop(IW3CXMLConfiguration.HEIGHT_ATTRIBUTE);
 		if(height != null){
 			try { 
 				fHeight = NumberUtils.processNonNegativeInteger(height); 
@@ -240,7 +252,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		}
 
 		// WIDTH IS OPTIONAL		
-		string width  = element.get_prop(IW3CXMLConfiguration.WIDTH_ATTRIBUTE);
+		string width  = element->get_prop(IW3CXMLConfiguration.WIDTH_ATTRIBUTE);
 		if(width != null){
 			try { 
 				fWidth = NumberUtils.processNonNegativeInteger(width); 
@@ -250,7 +262,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		}
 
 		// VIEWMODES IS OPTIONAL	
-		fViewModes = element.get_prop(IW3CXMLConfiguration.MODE_ATTRIBUTE);
+		fViewModes = element->get_prop(IW3CXMLConfiguration.MODE_ATTRIBUTE);
 		if(fViewModes == null){
 			fViewModes = IW3CXMLConfiguration.DEFAULT_VIEWMODE;
 		} else {
@@ -270,7 +282,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		
 		// parse the children
 		bool foundContent = false;
-		Xml.Node* iter = element.children;
+		Xml.Node* iter = element->children;
 		for (; iter != null; iter = iter->next) {
 			string tag = iter->name;			
 
@@ -308,7 +320,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 		
 			// LICENSE IS OPTIONAL - can be many
 			if(tag == IW3CXMLConfiguration.LICENSE_ELEMENT) {				
-				ILicenseEntity aLicense = new LicenseEntity();
+				ILicenseEntity aLicense = new LicenseEntity("","","","");
 				aLicense.fromXML(iter);
 				// add it to our list only if its not a repetition of an
 				// existing entry for the locale and the language tag is valid
@@ -318,7 +330,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 			// ICON IS OPTIONAL - can be many
 			if(tag == IW3CXMLConfiguration.ICON_ELEMENT) {						
 				IIconEntity anIcon = new IconEntity();
-				anIcon.fromXML(iter,locales,zip);
+				anIcon.fromXML_localized(iter,locales,zip);
 				if (anIcon.getSrc()!=null) fIconsList.add(anIcon);
 			}
 			
@@ -340,7 +352,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 				if (!foundContent){
 					foundContent = true;
 					IContentEntity aContent = new ContentEntity("", "", "");	
-					aContent.fromXML(iter,locales,supportedEncodings,zip);
+					aContent.fromXML_localized(iter,locales,supportedEncodings,zip);
 					if (aContent.getSrc()!=null) fContentList.add(aContent);
 				}
 			}
@@ -388,7 +400,7 @@ public class WidgetManifestModel : AbstractLocalizedEntity, W3CWidget {
 	}
 
 	public override Xml.Node toXml() {
-		Xml.Node widgetElem = new Xml.Node(IW3CXMLConfiguration.WIDGET_ELEMENT,IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		Xml.Node widgetElem = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.WIDGET_ELEMENT);
 		widgetElem.set_prop(IW3CXMLConfiguration.ID_ATTRIBUTE, getIdentifier());
 		if (getVersion() != null && getVersion().length > 0) widgetElem.set_prop(IW3CXMLConfiguration.VERSION_ATTRIBUTE, getVersion());
 		if (getHeight() > 0) widgetElem.set_prop(IW3CXMLConfiguration.HEIGHT_ATTRIBUTE,getHeight().to_string());

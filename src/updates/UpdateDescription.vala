@@ -11,10 +11,10 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.updates {
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+namespace W3CWidgets.updates {
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 
 public errordomain Updates {INVALID_UUD} 
 
@@ -42,7 +42,7 @@ public class UpdateDescription : Object {
 	
 	public 
 	Xml.Node toXML(){
-		var element = new Xml.Node.eat_name(IW3CXMLConfiguration.MANIFEST_NAMESPACE,IW3CXMLConfiguration.UPDATE_ELEMENT);
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST,IW3CXMLConfiguration.UPDATE_ELEMENT);
 		element.set_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE, getHref());
 		return element;
 	}

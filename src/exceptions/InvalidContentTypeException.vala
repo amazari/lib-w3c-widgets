@@ -11,7 +11,7 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.exceptions {
+namespace W3CWidgets.exceptions {
 
 
 /**

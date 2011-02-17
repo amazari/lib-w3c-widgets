@@ -12,26 +12,24 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.util;
+using W3CWidgets.exceptions;
 /**
  * the <license> element
  */
  
 using Xml;
 
-public class LicenseEntity : AbstractLocalizedEntity, ILicenseEntity {
+public class LicenseEntity : AbstractLocalizedEntity, IElement, ILicenseEntity {
 	
 	private string fLicenseText;
 	private string fHref;
+
 	
-	public LicenseEntity(){
-		fLicenseText = "";
-	}
-	
-	public LicenseEntity.with(string licenseText, string href, string language, string dir) {
+	public LicenseEntity(string licenseText, string href, string language, string dir) {
 		base();
 		fLicenseText = licenseText;
 		fHref = href;
@@ -55,15 +53,15 @@ public class LicenseEntity : AbstractLocalizedEntity, ILicenseEntity {
 		fHref = href;
 	}
 	
-	public void fromXML(Xml.Node element) {
+	public override void fromXML(Xml.Node* element) throws BadManifestException {
 		base.fromXML(element);
 		fLicenseText = getLocalizedTextContent(element);
-		fHref = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE));		
+		fHref = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE));		
 		if (fHref == "") fHref = null;
 	}
 
 	public override Xml.Node toXml() {
-		var element = new Xml.Node(IW3CXMLConfiguration.LICENSE_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.LICENSE_ELEMENT);
 		element.set_content(getLicenseText());
 		if (getHref()!=null && getHref().length>0) element.set_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE, getHref());
 		element = setLocalisationAttributes(element);

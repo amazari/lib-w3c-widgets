@@ -8,16 +8,17 @@
  */
 
 namespace Trausch.Vala.UUID {
+
 	public enum Variant {
-		NCS = Native.LibUUID.VARIANT_NCS,
-		DCE = Native.LibUUID.VARIANT_DCE,
-		Microsoft = Native.LibUUID.VARIANT_MICROSOFT,
-		Other = Native.LibUUID.VARIANT_OTHER
+		NCS = Native.LibUUID.Variant.NCS,
+		DCE = Native.LibUUID.Variant.DCE,
+		Microsoft = Native.LibUUID.Variant.MICROSOFT,
+		Other = Native.LibUUID.Variant.OTHER
 	}
 
 	public enum Type {
-		Time = Native.LibUUID.TYPE_DCE_TIME,
-		Random = Native.LibUUID.TYPE_DCE_RANDOM
+		Time = Native.LibUUID.Type.TIME,
+		Random = Native.LibUUID.Type.RANDOM
 	}
 
 	public errordomain UUIDError {
@@ -64,7 +65,7 @@ namespace Trausch.Vala.UUID {
 			}
 		}
 
-		public Type UUIDType {
+		public Type Type {
 			get {
 				if((bool)Native.LibUUID.is_null(this.uuid))
 					throw new UUIDError.NOT_SET("No UUID is currently stored");
@@ -74,7 +75,7 @@ namespace Trausch.Vala.UUID {
 			}
 
 			set {
-				Type current_type = this.UUIDType;
+				Type current_type = this.Type;
 				Type new_type = value;
 
 				if(current_type != new_type) {
@@ -149,7 +150,7 @@ namespace Trausch.Vala.UUID {
 		}
 
 		private Native.LibUUID.timeval get_raw_time() throws UUIDError {
-			if(this.UUIDType != Type.Time)
+			if(this.Type != Type.Time)
 				throw new UUIDError.WRONG_TYPE("Invalid op: not a time UUID");
 
 			if((bool)Native.LibUUID.is_null(this.uuid))
@@ -192,7 +193,7 @@ namespace Trausch.Vala.UUID {
 		}
 
 		public string get_type_as_string() throws UUIDError {
-			Type uuidType = this.UUIDType;
+			Type uuidType = this.Type;
 			string retval = "";
 
 			switch(uuidType) {

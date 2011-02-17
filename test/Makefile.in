@@ -36,7 +36,7 @@ host_triplet = @host@
 TESTS = w3c-widgets-test$(EXEEXT)
 check_PROGRAMS = $(am__EXEEXT_1)
 subdir = test
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in --pkg \
 	w3c_widgets_test.c w3c_widgets_test_vala.stamp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -48,7 +48,9 @@ CONFIG_CLEAN_VPATH_FILES =
 am__EXEEXT_1 = w3c-widgets-test$(EXEEXT)
 am_w3c_widgets_test_OBJECTS = w3c_widgets_test.$(OBJEXT)
 w3c_widgets_test_OBJECTS = $(am_w3c_widgets_test_OBJECTS)
-w3c_widgets_test_DEPENDENCIES = $(top_builddir)/src/libw3cwidgets.la
+am__DEPENDENCIES_1 =
+w3c_widgets_test_DEPENDENCIES = $(top_builddir)/src/libw3cwidgets.la \
+	$(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -193,8 +195,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = $(DEPENDENCIES_CFLAGS) -I$(top_srcdir)/src
 w3c_widgets_test_SOURCES = w3c_widgets_test.vala
-w3c_widgets_test_LDADD = $(top_builddir)/src/libw3cwidgets.la $(CALCULATOR_LIBS)
-w3c_widgets_test_VALAFLAGS = $(top_builddir)/src/w3cwidgets.vapi
+w3c_widgets_test_LDADD = $(top_builddir)/src/libw3cwidgets.la $(DEPENDENCIES_LIBS)
+w3c_widgets_test_VALAFLAGS = -g --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4  --vapidir $(top_builddir)/src/util --vapidir $(top_builddir)/src/ --pkg w3c-widgets --pkg libuuid
 CLEANFILES = *.c *.stamp test-report.xml test-report.html
 all: all-am
 
@@ -272,6 +274,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 $(srcdir)/w3c_widgets_test.c: $(srcdir)/w3c_widgets_test_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/w3c_widgets_test_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) w3c_widgets_test_vala.stamp; \
+	fi
+$(srcdir)/--pkg: $(srcdir)/w3c_widgets_test_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/w3c_widgets_test_vala.stamp; \
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) w3c_widgets_test_vala.stamp; \
@@ -492,6 +499,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-rm -f --pkg
 	-rm -f w3c_widgets_test.c
 	-rm -f w3c_widgets_test_vala.stamp
 clean: clean-am

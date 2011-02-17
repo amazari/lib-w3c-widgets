@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 using Trausch.Vala.UUID;
-namespace org.apache.wookie.w3c.util {
+namespace W3CWidgets.util {
 
 /**
  * RandomGUID
@@ -114,7 +114,7 @@ public class RandomGUID : Object {
 	
 	public RandomGUID() {
 		uuid = new UUID();
-		uuid.UUIDType = Trausch.Vala.UUID.Type.Random;
+		uuid.Type = Trausch.Vala.UUID.Type.Random;
 	}
 	
 	

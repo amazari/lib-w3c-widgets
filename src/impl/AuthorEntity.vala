@@ -12,16 +12,16 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.util;
 
 using Xml;
 /**
  * The <author> element
  */
-public class AuthorEntity : AbstractLocalizedEntity, IAuthorEntity {
+public class AuthorEntity : AbstractLocalizedEntity, IElement, IAuthorEntity {
 	
 	private string fAuthorName;
 	private string fHref;
@@ -64,18 +64,18 @@ public class AuthorEntity : AbstractLocalizedEntity, IAuthorEntity {
 		fEmail = email;
 	}
 	
-	public void fromXML(Xml.Node element) {
+	public override void fromXML(Xml.Node* element) {
 		base.fromXML(element);
 		fAuthorName = getLocalizedTextContent(element);		
-		fHref = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE));	
+		fHref = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE));	
 		if (fHref == "") fHref = null;
 		if (!IRIValidator.isValidIRI(fHref)) fHref = null;
-		fEmail = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.EMAIL_ATTRIBUTE));
+		fEmail = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.EMAIL_ATTRIBUTE));
 		if (fEmail == "") fEmail = null;
 	}
 
 	public override Xml.Node toXml() {
-		var element = new Xml.Node(IW3CXMLConfiguration.NAME_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.NAME_ELEMENT);
 		element.set_content(getAuthorName());
 		if (getHref()!=null && getHref().length>0) element.set_prop(IW3CXMLConfiguration.HREF_ATTRIBUTE, getHref());
 		if (getEmail()!=null && getEmail().length>0) element.set_prop(IW3CXMLConfiguration.EMAIL_ATTRIBUTE, getEmail());

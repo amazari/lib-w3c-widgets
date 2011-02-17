@@ -11,7 +11,7 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c.updates {
+namespace W3CWidgets.updates {
 
 /**
  * An exception thrown when an Update Description Document is not valid

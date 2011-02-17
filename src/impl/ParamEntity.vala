@@ -12,11 +12,11 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 
 using Xml;
 /**
@@ -54,15 +54,15 @@ public class ParamEntity : Object, IParamEntity, IElement {
 		fValue = value;
 	}
 	
-	public void fromXML(Xml.Node* element) throws BadManifestException {
+	public virtual void fromXML(Xml.Node* element) throws BadManifestException {
 		fName = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE));
 		if (fName == "") fName = null;
 		fValue = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.VALUE_ATTRIBUTE));
 		if (fValue == "") fValue = null;
 	}
 
-	public Xml.Node toXml() {
-		var element = new Xml.Node(IW3CXMLConfiguration.PARAM_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+	public virtual Xml.Node toXml() {
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.PARAM_ELEMENT);
 		element.set_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE, getName());
 		element.set_prop(IW3CXMLConfiguration.VALUE_ATTRIBUTE, getValue());
 		return element;

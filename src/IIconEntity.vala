@@ -12,9 +12,9 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c {
+namespace W3CWidgets {
 
-using org.apache.wookie.w3c.exceptions;
+using W3CWidgets.exceptions;
 
 /**
  * a Widget icon
@@ -33,7 +33,7 @@ public abstract interface IIconEntity : Object, ILocalizedEntity {
 
 	public abstract void setWidth(int width);
 	
-	public abstract void fromXML(Xml.Node element, string[] locales, File zip) throws BadManifestException;
+	public abstract void fromXML_localized(Xml.Node element, string[] locales, File zip) throws BadManifestException;
 
 }
 }

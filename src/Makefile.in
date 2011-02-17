@@ -35,14 +35,13 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 subdir = src
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	--disable-warnings -g IAccessEntity.c IAuthorEntity.c \
-	IContentEntity.c IDescriptionEntity.c IElement.c \
-	IFeatureEntity.c IIconEntity.c ILicenseEntity.c \
-	ILocalizedElement.c ILocalizedEntity.c INameEntity.c \
-	IParamEntity.c IPreferenceEntity.c IStartPageProcessor.c \
-	IW3CXMLConfiguration.c W3CWidget.c W3CWidgetFactory.c \
-	exceptions/BadManifestException.c \
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in --library -H \
+	-g IAccessEntity.c IAuthorEntity.c IContentEntity.c \
+	IDescriptionEntity.c IElement.c IFeatureEntity.c IIconEntity.c \
+	ILicenseEntity.c ILocalizedElement.c ILocalizedEntity.c \
+	INameEntity.c IParamEntity.c IPreferenceEntity.c \
+	IStartPageProcessor.c IW3CXMLConfiguration.c W3CWidget.c \
+	W3CWidgetFactory.c exceptions/BadManifestException.c \
 	exceptions/BadWidgetZipFileException.c \
 	exceptions/InvalidContentTypeException.c \
 	exceptions/InvalidStartFileException.c \
@@ -51,8 +50,9 @@ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	impl/DescriptionEntity.c impl/FeatureEntity.c \
 	impl/IconEntity.c impl/LicenseEntity.c impl/NameEntity.c \
 	impl/ParamEntity.c impl/PreferenceEntity.c \
-	impl/WidgetManifestModel.c libw3cwidgets_la_vala.stamp \
-	updates/InvalidUDDException.c updates/UpdateDescription.c \
+	impl/WidgetManifestModel.c internal.h \
+	libw3cwidgets_la_vala.stamp updates/InvalidUDDException.c \
+	updates/UpdateDescription.c \
 	updates/UpdateDescriptionDocument.c util/Arrays.c \
 	util/ContentTypeUtils.c util/FormattingUtils.c \
 	util/IRIValidator.c util/LocalizationUtils.c \
@@ -276,7 +276,6 @@ updates/InvalidUDDException.vala	\
 updates/UpdateDescriptionDocument.vala\
 updates/UpdateDescription.vala	\
 util/Arrays.vala				\
-util/libuuid.vapi			\
 util/libwrapuuid.vala			\
 util/WidgetOutputter.vala		\
 util/LocalizationUtils.vala		\
@@ -301,7 +300,7 @@ impl/ContentEntity.vala		\
 impl/AccessEntity.vala		\
 W3CWidgetFactory.vala
 
-libw3cwidgets_la_VALAFLAGS = -v -g --disable-warnings --library w3c-widgets -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --vapidir ./util -X -luuid 
+libw3cwidgets_la_VALAFLAGS = -v -g --library w3c-widgets -h internal.h -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --pkg uuid --vapidir util/
 CLEANFILES = *.h *.c *.vapi *.stamp *~ */*.h */*.c */*.stamp */*~
 all: all-am
 
@@ -895,7 +894,17 @@ $(srcdir)/-g: $(srcdir)/libw3cwidgets_la_vala.stamp
 	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
 	fi
-$(srcdir)/--disable-warnings: $(srcdir)/libw3cwidgets_la_vala.stamp
+$(srcdir)/--library: $(srcdir)/libw3cwidgets_la_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
+	fi
+$(srcdir)/internal.h: $(srcdir)/libw3cwidgets_la_vala.stamp
+	@if test -f $@; then :; else \
+	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
+	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
+	fi
+$(srcdir)/-H: $(srcdir)/libw3cwidgets_la_vala.stamp
 	@if test -f $@; then :; else \
 	  rm -f $(srcdir)/libw3cwidgets_la_vala.stamp; \
 	  $(am__cd) $(srcdir) && $(MAKE) $(AM_MAKEFLAGS) libw3cwidgets_la_vala.stamp; \
@@ -1030,7 +1039,8 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-	-rm -f --disable-warnings
+	-rm -f --library
+	-rm -f -H
 	-rm -f -g
 	-rm -f IAccessEntity.c
 	-rm -f IAuthorEntity.c
@@ -1065,6 +1075,7 @@ maintainer-clean-generic:
 	-rm -f impl/ParamEntity.c
 	-rm -f impl/PreferenceEntity.c
 	-rm -f impl/WidgetManifestModel.c
+	-rm -f internal.h
 	-rm -f libw3cwidgets_la_vala.stamp
 	-rm -f updates/InvalidUDDException.c
 	-rm -f updates/UpdateDescription.c

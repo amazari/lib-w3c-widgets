@@ -12,19 +12,19 @@
  * limitations under the License.
  */
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 //using org.jdom.Element;
 using Xml;
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
 /**
  * @author Paul Sharples
  * @version $Id: PreferenceEntity.java,v 1.3 2009-09-02 18:37:31 scottwilson Exp $
  */
-public class PreferenceEntity : ParamEntity, IPreferenceEntity {
+public class PreferenceEntity : ParamEntity, IElement, IPreferenceEntity {
 	
 	private bool fReadOnly;
 	
@@ -41,9 +41,9 @@ public class PreferenceEntity : ParamEntity, IPreferenceEntity {
 		fReadOnly = readOnly;
 	}
 	
-	public void fromXML(Xml.Node element) throws BadManifestException {
+	public override void fromXML(Xml.Node* element) throws BadManifestException {
 		base.fromXML(element);
-		string isReadOnly = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.READONLY_ATTRIBUTE));
+		string isReadOnly = UnicodeUtils.normalizeSpaces(element->get_prop(IW3CXMLConfiguration.READONLY_ATTRIBUTE));
 		if (isReadOnly == "true"){
 			fReadOnly = true;
 		} else {
@@ -51,8 +51,8 @@ public class PreferenceEntity : ParamEntity, IPreferenceEntity {
 		}	
 	}
 
-	public Xml.Node toXml() {
-		var element = new Xml.Node(IW3CXMLConfiguration.MANIFEST_NAMESPACE, IW3CXMLConfiguration.PREFERENCE_ELEMENT);
+	public override Xml.Node toXml() {
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.PREFERENCE_ELEMENT);
 		element.new_prop(IW3CXMLConfiguration.READONLY_ATTRIBUTE, isReadOnly().to_string());
 		element.new_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE, getName());
 		element.new_prop(IW3CXMLConfiguration.VALUE_ATTRIBUTE, getValue());

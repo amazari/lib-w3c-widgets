@@ -12,7 +12,22 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c {
+namespace Xml {
+
+public class NameSpace
+{
+	public static Xml.Ns XML;
+	public static Xml.Ns MANIFEST;
+	static construct {
+		XML = new Xml.Ns (null, "http://www.w3.org/XML/1998/namespace", "xml");
+		MANIFEST = new Xml.Ns (null, "http://www.w3.org/ns/widgets", "");
+
+	}
+}
+}
+
+namespace W3CWidgets {
+
 
 /**
  * Constants for widget elements found in the config.xml file

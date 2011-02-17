@@ -11,7 +11,7 @@
  *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace org.apache.wookie.w3c {
+namespace W3CWidgets {
 
 /**
  * An element that supports localization with both a language tag and text direction

@@ -12,12 +12,12 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 
 /**
  * @author Paul Sharples
@@ -44,7 +44,7 @@ public class ContentEntity : AbstractLocalizedEntity, IContentEntity {
 		fSrc = src;
 	}
 
-	public string getCharSet() {
+	public string? getCharSet() {
 		return fCharSet;
 	}
 
@@ -52,7 +52,7 @@ public class ContentEntity : AbstractLocalizedEntity, IContentEntity {
 		fCharSet = charSet;
 	}
 
-	public string getType() {
+	public string? getType() {
 		return fType;
 	}
 
@@ -61,7 +61,7 @@ public class ContentEntity : AbstractLocalizedEntity, IContentEntity {
 	}
 	
 
-	public void fromXML(Xml.Node element, string[] locales, string[] encodings, File zip) throws BadManifestException {
+	public void fromXML_localized(Xml.Node element, string[] locales, string[] encodings, File zip) throws BadManifestException {
 		
 		// Src
 		fSrc = UnicodeUtils.normalizeSpaces(element.get_prop(IW3CXMLConfiguration.SOURCE_ATTRIBUTE));
@@ -87,8 +87,8 @@ public class ContentEntity : AbstractLocalizedEntity, IContentEntity {
 			fType = type[0];
 			// Get the charset parameter if present
 			if (type.length > 1){
-				string charset[] = type[type.length-1].split("=");
-				charsetParameter = charset[charset.length-1];	
+				string[] charset_caca = type[type.length-1].split("=");
+				charsetParameter = charset_caca[charset_caca.length-1];	
 			}
 		}
 		
@@ -106,7 +106,6 @@ public class ContentEntity : AbstractLocalizedEntity, IContentEntity {
 	 * @return true if the value is one of the supported values
 	 */
 	private bool isSupported(string value, string[] supportedValues){
-		if (value == null) return false;
 		bool supported = false;
 		foreach (string type in supportedValues){
 			if (value == type) supported = true;
@@ -115,7 +114,7 @@ public class ContentEntity : AbstractLocalizedEntity, IContentEntity {
 	}
 
 	public override Xml.Node toXml() {
-		Xml.Node contentElem = new Xml.Node(IW3CXMLConfiguration.CONTENT_ELEMENT,IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		Xml.Node contentElem = new Xml.Node(Xml.NameSpace.XML, IW3CXMLConfiguration.CONTENT_ELEMENT);
 		contentElem.set_prop(IW3CXMLConfiguration.SOURCE_ATTRIBUTE,getSrc());
 		if (getType() != null) contentElem.set_prop(IW3CXMLConfiguration.TYPE_ATTRIBUTE,getType());
 		if (getCharSet() != null) contentElem.set_prop(IW3CXMLConfiguration.CHARSET_ATTRIBUTE,getCharSet());

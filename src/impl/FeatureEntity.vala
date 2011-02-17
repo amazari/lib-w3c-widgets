@@ -12,13 +12,13 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
 
 
-using org.apache.wookie.w3c;
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.util;
+using W3CWidgets;
+using W3CWidgets.exceptions;
+using W3CWidgets.util;
 
 using Gee;
 
@@ -135,7 +135,7 @@ public class FeatureEntity : Object, IFeatureEntity, IElement {
 	}
 
 	public Xml.Node toXml() {
-		Xml.Node element = new Xml.Node(IW3CXMLConfiguration.FEATURE_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		Xml.Node element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.FEATURE_ELEMENT);
 		element.set_prop(IW3CXMLConfiguration.NAME_ATTRIBUTE, getName());
 		element.set_prop(IW3CXMLConfiguration.REQUIRED_ATTRIBUTE, isRequired().to_string());
 		foreach (IParamEntity param in getParams()){

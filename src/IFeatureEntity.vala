@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c {
+namespace W3CWidgets {
 /**
  * a Feature of a Widget
  */

@@ -27,7 +27,6 @@ updates/InvalidUDDException.vala	\
 updates/UpdateDescriptionDocument.vala\
 updates/UpdateDescription.vala	\
 util/Arrays.vala				\
-util/libuuid.vapi			\
 util/libwrapuuid.vala			\
 util/WidgetOutputter.vala		\
 util/LocalizationUtils.vala		\
@@ -52,7 +51,7 @@ impl/ContentEntity.vala		\
 impl/AccessEntity.vala		\
 W3CWidgetFactory.vala
 
-libw3cwidgets_la_VALAFLAGS = -v -g --disable-warnings --library w3c-widgets -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --vapidir ./util -X -luuid 
+libw3cwidgets_la_VALAFLAGS = -v -g --library w3c-widgets -h internal.h -H w3c-widgets.h --pkg gio-2.0 --pkg libxml-2.0 --pkg gee-1.0 --pkg libsoup-2.4 --pkg uuid --vapidir util/
 
 
 CLEANFILES = *.h *.c *.vapi *.stamp *~ */*.h */*.c */*.stamp */*~

@@ -13,13 +13,13 @@
  */
  
  
-using org.apache.wookie.w3c.exceptions;
-using org.apache.wookie.w3c.impl;
-using org.apache.wookie.w3c.util;
+using W3CWidgets.exceptions;
+using W3CWidgets.impl;
+using W3CWidgets.util;
 
 using Soup;
 
-namespace org.apache.wookie.w3c {
+namespace W3CWidgets {
 
 /**
  * Factory for parsing W3C Widget packages (.wgt files).
@@ -167,7 +167,8 @@ public class W3CWidgetFactory : Object {
 	 * @throws InvalidContentTypeException if the widget has an invalid content type
 	 * @throws IOException if the widget cannot be downloaded
 	 */
-	public W3CWidget parse(URI url, bool ignoreContentType) throws BadWidgetZipFileException, BadManifestException, InvalidContentTypeException, IOError, Error{
+	public W3CWidget parse(string path, bool ignoreContentType) throws BadWidgetZipFileException, BadManifestException, InvalidContentTypeException, IOError, Error{
+		var url = new URI(path);
 		File file = download(url, ignoreContentType);
 		return parse_zip(file);
 	}
@@ -239,6 +240,7 @@ public class W3CWidgetFactory : Object {
 				
 				uint8[] buffer = new uint8[size];
 				 input.read (buffer);
+				 
 				// build the model
 				WidgetManifestModel widgetModel = new 
 				WidgetManifestModel((string)buffer, locales, 
@@ -248,7 +250,7 @@ public class W3CWidgetFactory : Object {
 				// get the widget identifier
 				string manifestIdentifier = widgetModel.getIdentifier();						
 				// create the folder structure to unzip the zip into
-				unzippedWidgetDirectory = 	outputDirectory.get_child (manifestIdentifier);
+				unzippedWidgetDirectory = outputDirectory.get_child (manifestIdentifier);
 				unzippedWidgetDirectory.make_directory();
 				
 				// now unzip it into that folder

@@ -12,14 +12,14 @@
  * limitations under the License.
  */
 
-namespace org.apache.wookie.w3c.impl {
+namespace W3CWidgets.impl {
 
-using org.apache.wookie.w3c;
+using W3CWidgets;
 using Xml;
 /**
  * The <description> element
  */
-public class DescriptionEntity : AbstractLocalizedEntity, IDescriptionEntity {
+public class DescriptionEntity : AbstractLocalizedEntity, IElement, IDescriptionEntity {
 	
 	private string fDescription;
 	
@@ -42,13 +42,13 @@ public class DescriptionEntity : AbstractLocalizedEntity, IDescriptionEntity {
 		fDescription = description;
 	}
 	
-	public void fromXML(Xml.Node element) {
+	public override void fromXML(Xml.Node* element) {
 		base.fromXML(element);
 		fDescription = getLocalizedTextContent(element);
 	}
 
 	public override  Xml.Node toXml() {
-		var element = new Xml.Node(IW3CXMLConfiguration.DESCRIPTION_ELEMENT, IW3CXMLConfiguration.MANIFEST_NAMESPACE);
+		var element = new Xml.Node(Xml.NameSpace.MANIFEST, IW3CXMLConfiguration.DESCRIPTION_ELEMENT);
 		element.set_content(getDescription());
 		element = setLocalisationAttributes(element);
 		return element;
